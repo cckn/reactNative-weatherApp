@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import Weather from "./Weather";
 
-const API_KEY = "##";
+const API_KEY = "0941a5689c4c9778984387a0adeba4d8";
 
 export default class App extends Component {
   state = {
@@ -30,21 +30,25 @@ export default class App extends Component {
     )
       .then(response => response.json())
       .then(json => {
-        console.log(json);
+        // console.log(json);
         this.setState({
           temperature: json.main.temp,
           name: json.weather[0].main,
-          isLoaded:true
+          isLoaded: true
         });
       });
   };
+
   render() {
     const { isLoaded, error } = this.state;
+    const { temperature, name } = this.state;
+    // console.log(temp);
+
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="light-content" hidden={true} />
+        <StatusBar barStyle="dark-content" />
         {isLoaded ? (
-          <Weather />
+          <Weather temperature={temperature} weatherName={name} />
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Getting the fucking weather</Text>
